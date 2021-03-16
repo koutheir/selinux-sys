@@ -1,0 +1,20 @@
+[package]
+name = "selinux-sys"
+description = "Flexible Mandatory Access Control (MAC) for Linux"
+version = "0.1.0" # Remember to update `html_root_url`.
+authors = ["Koutheir Attouchi <koutheir@gmail.com>"]
+edition = "2018"
+readme = "README.md"
+license = "MIT"
+keywords = [ "selinux", "security", "access-control" ]
+categories = [ "external-ffi-bindings", "filesystem", "os" ]
+build = "build.rs"
+links = "selinux"
+repository = "https://github.com/koutheir/selinux-sys"
+documentation = "https://docs.rs/selinux-sys"
+
+[dependencies]
+
+[build-dependencies]
+pkg-config = { version = "0.3"  }
+bindgen    = { version = "0.57" }
