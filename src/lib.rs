@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/selinux-sys/0.1.0")]
+#![doc(html_root_url = "https://docs.rs/selinux-sys/0.2.0")]
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]

@@ -2,6 +2,13 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2021-03-17
+
+### Changed
+
+- Make sure `DEP_SELINUX_INCLUDE` and `DEP_SELINUX_LIB` point to directories.
+  They previously pointed to files.
+
 ## [0.1.0] - 2021-03-06
 
 ### Added

@@ -21,32 +21,29 @@ fn main() {
 
 fn output_include_dir(include_paths: &[PathBuf]) -> PathBuf {
     let include_path = find_file_in_dirs("selinux/selinux.h", include_paths).unwrap();
-    println!(
-        "cargo:include={}/selinux/selinux.h",
-        include_path.to_str().unwrap()
-    );
+    println!("cargo:include={}", include_path.to_str().unwrap());
     include_path
 }
 
 fn output_lib_dir(link_paths: &[PathBuf], target: &str) {
     if let Ok(lib_path) = find_file_in_dirs("libselinux.so", link_paths) {
-        println!("cargo:lib={}/libselinux.so", lib_path.to_str().unwrap());
+        println!("cargo:lib={}", lib_path.to_str().unwrap());
     } else if let Ok(lib_path) = find_file_in_dirs("libselinux.a", link_paths) {
-        println!("cargo:lib={}/libselinux.a", lib_path.to_str().unwrap());
+        println!("cargo:lib={}", lib_path.to_str().unwrap());
     } else if let Some(link_path) = link_paths.get(0) {
         let triplet = target.replace("-unknown-", "-").replace("-none-", "-");
 
-        for path in &[
-            link_path.join("libselinux.so"),
-            link_path.join(&target).join("libselinux.so"),
-            link_path.join(&triplet).join("libselinux.so"),
-            link_path.join("libselinux.a"),
-            link_path.join(&target).join("libselinux.a"),
-            link_path.join(&triplet).join("libselinux.a"),
-        ] {
-            if path.exists() {
-                println!("cargo:lib={}", path.to_str().unwrap());
-                break;
+        for file_name in &["libselinux.so", "libselinux.a"] {
+            for &dir in &[
+                link_path,
+                &link_path.join(&target),
+                &link_path.join(&triplet),
+            ] {
+                let path = dir.join(file_name);
+                if path.exists() {
+                    println!("cargo:lib={}", dir.to_str().unwrap());
+                    return;
+                }
             }
         }
     }
