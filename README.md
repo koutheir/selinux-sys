@@ -6,6 +6,9 @@
 
 SELinux is a flexible Mandatory Access Control (MAC) for Linux.
 
+This crate is Linux-specific. Building it for non-Linux platforms, or for
+the Linux kernel, results in an empty crate.
+
 ## Linking options
 
 This crate finds `libselinux` based on `pkg-config`.
