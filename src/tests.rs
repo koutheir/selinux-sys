@@ -1,4 +1,4 @@
-#![cfg(test)]
+#![cfg(all(test, target_os = "linux", not(target_env = "kernel")))]
 
 use std::os::raw::c_char;
 use std::ptr;

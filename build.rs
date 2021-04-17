@@ -11,6 +11,10 @@ fn main() {
 
     println!("cargo:root={}", out_dir.to_str().unwrap());
 
+    if !target.contains("-linux-") || target.ends_with("-kernel") {
+        return; // Nothing to build for this architecture.
+    }
+
     let lib = pkg_config::Config::new().probe("libselinux").unwrap();
 
     output_lib_dir(&lib.link_paths, &target);
