@@ -67,11 +67,11 @@ fn generate_bindings(out_dir: &Path, include_path: &Path) {
         "sid(get|put)",
         "matchpathcon(_init|_init_prefix|_fini|_index)?",
     ] {
-        builder = builder.blacklist_function(blacklisted_function);
+        builder = builder.blocklist_function(blacklisted_function);
     }
 
     // Do not expose deprecated types.
-    builder = builder.blacklist_type("security_context_t");
+    builder = builder.blocklist_type("security_context_t");
 
     // Expose documented functions.
     for &function in &[
@@ -87,13 +87,13 @@ fn generate_bindings(out_dir: &Path, include_path: &Path) {
         "print_access_vector",
         "query_user_context",
     ] {
-        builder = builder.whitelist_function(function);
+        builder = builder.allowlist_function(function);
     }
 
     // Expose documented types and constants.
     builder = builder
-        .whitelist_type("(security|selinux|access|av|avc|SEL)_.+")
-        .whitelist_var("(SELINUX|SELABEL|MATCHPATHCON|SECSID|AVC)_.+");
+        .allowlist_type("(security|selinux|access|av|avc|SEL)_.+")
+        .allowlist_var("(SELINUX|SELABEL|MATCHPATHCON|SECSID|AVC)_.+");
 
     // Include all SELinux headers.
     for &header in &[
