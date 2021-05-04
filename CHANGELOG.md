@@ -2,6 +2,14 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2021-05-04
+
+### Changed
+
+- Instead of using the `pkg-config` crate, we now detect compilers and flags
+  mostly based on the `cc` crate. This allows cross-compilation.
+- Updated documentation.
+
 ## [0.3.1] - 2021-04-17
 
 ### Changed
