@@ -2,6 +2,12 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.1] - 2021-05-09
+
+### Added
+
+- Exposed the `getseuser()` API.
+
 ## [0.4.0] - 2021-05-04
 
 ### Changed

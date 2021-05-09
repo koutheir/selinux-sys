@@ -317,7 +317,7 @@ fn generate_bindings(out_dir: &Path, include_path: &Path) {
         "(init|fini|set)_selinuxmnt",
         "get_(default|ordered)_(context|type).*",
         "(string|mode)_to_(security_class|av_perm)",
-        "getseuserbyname",
+        "getseuser(byname)?",
         "manual_user_enter_context",
         "print_access_vector",
         "query_user_context",
