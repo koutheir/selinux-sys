@@ -292,6 +292,8 @@ fn generate_bindings(out_dir: &Path, include_path: &Path) {
         .size_t_is_usize(true)
         .derive_debug(true)
         .derive_copy(true)
+        .derive_eq(true)
+        .derive_ord(true)
         .impl_debug(true);
 
     // Do not expose deprecated functions.
