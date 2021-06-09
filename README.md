@@ -1,6 +1,6 @@
 [![crates.io](https://img.shields.io/crates/v/selinux-sys.svg)](https://crates.io/crates/selinux-sys)
 [![docs.rs](https://docs.rs/selinux-sys/badge.svg)](https://docs.rs/selinux-sys)
-[![license](https://img.shields.io/github/license/koutheir/selinux-sys?color=black)](https://raw.githubusercontent.com/koutheir/selinux-sys/master/LICENSE.md)
+[![license](https://img.shields.io/github/license/koutheir/selinux-sys?color=black)](https://raw.githubusercontent.com/koutheir/selinux-sys/master/LICENSE.txt)
 
 # `selinux-sys`: Unsafe Rust bindings for `libselinux`
 
