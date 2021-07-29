@@ -2,6 +2,17 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2021-07-28
+
+### Changed
+
+- Update dependencies: `bindgen`.
+
+### Removed
+
+- Removed all fixed C integer types, such as `__uint8_t`, `__uint32_t`, etc.
+  **This is a breaking change.**
+
 ## [0.4.2] - 2021-06-01
 
 ### Added
@@ -45,7 +56,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [0.2.0] - 2021-03-17
 
-### Changed
+### Fixed
 
 - Make sure `DEP_SELINUX_INCLUDE` and `DEP_SELINUX_LIB` point to directories.
   They previously pointed to files.

@@ -33,7 +33,7 @@ fn path_to_str(path: &Path) -> &str {
 
 #[cfg(feature = "static")]
 fn get_static_linking(target: &str) -> Option<bool> {
-    target_env_var_os("SELINUX_STATIC", &target)
+    target_env_var_os("SELINUX_STATIC", target)
         .map(|v| v == "1" || v == "true")
         .or_else(|| Some(true))
 }
@@ -66,6 +66,7 @@ fn get_compiler_search_paths(target: &str) -> CompilerSearchPaths {
     CompilerSearchPaths::new(include_dir, link_dir)
 }
 
+#[derive(Debug)]
 struct CompilerSearchPaths {
     include_paths: Vec<PathBuf>,
     link_paths: Vec<PathBuf>,
@@ -308,7 +309,9 @@ fn generate_bindings(out_dir: &Path, include_path: &Path) {
     }
 
     // Do not expose deprecated types.
-    builder = builder.blocklist_type("security_context_t");
+    for &type_re in &["security_context_t", "^__u?int[0-9]+_t$"] {
+        builder = builder.blocklist_type(type_re);
+    }
 
     // Expose documented functions.
     for &function in &[

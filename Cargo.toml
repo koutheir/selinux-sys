@@ -1,7 +1,7 @@
 [package]
 name = "selinux-sys"
 description = "Flexible Mandatory Access Control (MAC) for Linux"
-version = "0.4.2" # Remember to update `html_root_url`.
+version = "0.5.0" # Remember to update `html_root_url`.
 authors = ["Koutheir Attouchi <koutheir@gmail.com>"]
 edition = "2018"
 readme = "README.md"
@@ -14,7 +14,7 @@ repository = "https://github.com/koutheir/selinux-sys"
 documentation = "https://docs.rs/selinux-sys"
 
 [build-dependencies]
-bindgen = { version = "0.58" }
+bindgen = { version = "0.59" }
 walkdir = { version = "2.3"  }
 dunce   = { version = "1.0" }
 cc      = { version = "1.0" }
@@ -25,6 +25,11 @@ static = []
 [package.metadata.docs.rs]
 default-target = "x86_64-unknown-linux-gnu"
 # Supported target are all user-land Linux platforms.
+#
+# Building on musl-based systems requires:
+# ```
+# env RUSTFLAGS=-Ctarget-feature=-crt-static cargo test
+# ```
 targets = [
     "aarch64-linux-android",
     "aarch64-unknown-linux-gnu",
