@@ -161,7 +161,7 @@ impl CompilerSearchPaths {
         let line = output
             .stdout
             .split(|&b| b == b'\n')
-            .find_map(|line| line.strip_prefix(b"libraries:"))
+            .find_map(|line| strip_bytes_prefix(line, b"libraries:"))
             .and_then(|bytes| str::from_utf8(bytes).ok())
             .map(str::trim)
             .map(|line| line.trim_start_matches('='))
@@ -276,7 +276,7 @@ fn find_and_output_lib_dir(link_paths: &[PathBuf], target: &str, explicit_static
                 let lib_path = lib_dir.join(&file_name);
                 if let Ok(md) = lib_path.metadata() {
                     if md.is_file() {
-                        output_lib_dir(&lib_dir, &lib_path, static_lib);
+                        output_lib_dir(lib_dir, &lib_path, static_lib);
                         return;
                     }
                 }
@@ -369,4 +369,19 @@ fn find_file_in_dirs(path_suffix: &str, dirs: &[PathBuf]) -> io::Result<PathBuf>
     }
 
     Err(io::ErrorKind::NotFound.into())
+}
+
+// This is used instead of `std::slice::strip_prefix()`, in order to reduce the
+// minimum supported Rust version for this crate.
+// This should be removed once we can assume at least Rust version 1.51.0.
+#[must_use]
+fn strip_bytes_prefix<'a, 'b>(slice: &'a [u8], prefix: &'b [u8]) -> Option<&'a [u8]> {
+    let prefix_len = prefix.len();
+    if prefix_len <= slice.len() {
+        let (head, tail) = slice.split_at(prefix_len);
+        if head == prefix {
+            return Some(tail);
+        }
+    }
+    None
 }

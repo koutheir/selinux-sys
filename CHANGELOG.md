@@ -2,6 +2,13 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.1] - 2021-08-01
+
+### Changed
+
+- Stopped using `std::slice::strip_prefix()`, in order to reduce the minimum
+  supported Rust version for this crate.
+
 ## [0.5.0] - 2021-07-28
 
 ### Changed
