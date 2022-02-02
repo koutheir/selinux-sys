@@ -14,7 +14,8 @@ fn main() {
 
     println!("cargo:root={}", path_to_str(&out_dir));
 
-    if !target.contains("-linux-") || target.ends_with("-kernel") {
+    let target_is_linux = target.contains("-linux-") || target.ends_with("-linux");
+    if !target_is_linux || target.ends_with("-kernel") {
         return; // Nothing to build for this architecture.
     }
 

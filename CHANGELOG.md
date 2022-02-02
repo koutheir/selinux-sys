@@ -2,6 +2,12 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.2] - 2022-02-02
+
+### Added
+
+- Support building for target triplets that end with `-linux`.
+
 ## [0.5.1] - 2021-08-01
 
 ### Changed
