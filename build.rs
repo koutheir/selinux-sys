@@ -296,7 +296,8 @@ fn generate_bindings(out_dir: &Path, include_path: &Path) {
         .derive_copy(true)
         .derive_eq(true)
         .derive_ord(true)
-        .impl_debug(true);
+        .impl_debug(true)
+        .clang_args(&["-I", &path_to_str(include_path)]);
 
     // Do not expose deprecated functions.
     for &blacklisted_function in &[
