@@ -14,7 +14,7 @@ repository    = "https://github.com/koutheir/selinux-sys"
 documentation = "https://docs.rs/selinux-sys"
 
 [build-dependencies]
-bindgen = { version = "0.59" }
+bindgen = { version = "0.60" }
 walkdir = { version = "2.3" }
 dunce   = { version = "1.0" }
 cc      = { version = "1.0" }
