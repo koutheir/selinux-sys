@@ -2,6 +2,17 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.3] - 2022-08-24
+
+### Changed
+
+- Pass headers include path to the compiler when generating bindings.
+  Specifying the `SELINUX_INCLUDE_DIR` or `SELINUX_PATH` environment variables
+  now also affects the command line of the compiler used to generate bindings.
+- Update dependencies: `bindgen`.
+
+Thank you very much, *etienne-cor*.
+
 ## [0.5.2] - 2022-02-02
 
 ### Added

@@ -1,5 +1,12 @@
 /target
-Cargo.lock
+/*.tar.gz
+/*.tar.xz
+/*.dsc
+/libselinux-*/
+/vm/
+/docker/
+/Cargo.lock
+/Cross.toml
 *.code-workspace
+/.vscode/
 .directory
-*.tar.gz

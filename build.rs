@@ -194,7 +194,7 @@ fn target_env_var_os(name: &str, target: &str) -> Option<OsString> {
     env::var_os(format!("{}_{}", name, target))
         .or_else(|| env::var_os(format!("{}_{}", name, target_underscores)))
         .or_else(|| env::var_os(format!("TARGET_{}", name)))
-        .or_else(|| env::var_os(name.to_string()))
+        .or_else(|| env::var_os(name))
 }
 
 fn rerun_if_env_changed(name: &str, target: &str) {
@@ -297,7 +297,7 @@ fn generate_bindings(out_dir: &Path, include_path: &Path) {
         .derive_eq(true)
         .derive_ord(true)
         .impl_debug(true)
-        .clang_args(&["-I", &path_to_str(include_path)]);
+        .clang_args(&["-I", path_to_str(include_path)]);
 
     // Do not expose deprecated functions.
     for &blacklisted_function in &[
