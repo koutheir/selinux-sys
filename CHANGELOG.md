@@ -2,6 +2,16 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2022-11-14
+
+### Changed
+
+- Rust edition is updated to 2021.
+
+  > ⚠️ **This is a breaking change**.
+
+- Update dependencies: `bindgen`.
+
 ## [0.5.3] - 2022-08-24
 
 ### Changed
@@ -35,7 +45,8 @@ Thank you very much, *etienne-cor*.
 ### Removed
 
 - Removed all fixed C integer types, such as `__uint8_t`, `__uint32_t`, etc.
-  **This is a breaking change.**
+
+  > ⚠️ **This is a breaking change**.
 
 ## [0.4.2] - 2021-06-01
 

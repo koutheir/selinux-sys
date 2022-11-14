@@ -1,4 +1,4 @@
-/target
+/target/
 /*.tar.gz
 /*.tar.xz
 /*.dsc

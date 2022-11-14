@@ -271,7 +271,7 @@ fn find_and_output_lib_dir(link_paths: &[PathBuf], target: &str, explicit_static
 
             for &lib_dir in &[
                 link_path,
-                &link_path.join(&target),
+                &link_path.join(target),
                 &link_path.join(&triplet),
             ] {
                 let lib_path = lib_dir.join(&file_name);
