@@ -191,19 +191,19 @@ fn target_env_var_os(name: &str, target: &str) -> Option<OsString> {
 
     let target_underscores = target.replace('-', "_");
 
-    env::var_os(format!("{}_{}", name, target))
-        .or_else(|| env::var_os(format!("{}_{}", name, target_underscores)))
-        .or_else(|| env::var_os(format!("TARGET_{}", name)))
+    env::var_os(format!("{name}_{target}"))
+        .or_else(|| env::var_os(format!("{name}_{target_underscores}")))
+        .or_else(|| env::var_os(format!("TARGET_{name}")))
         .or_else(|| env::var_os(name))
 }
 
 fn rerun_if_env_changed(name: &str, target: &str) {
     let target_underscores = target.replace('-', "_");
 
-    println!("cargo:rerun-if-env-changed={}_{}", name, target);
-    println!("cargo:rerun-if-env-changed={}_{}", name, target_underscores);
-    println!("cargo:rerun-if-env-changed=TARGET_{}", name);
-    println!("cargo:rerun-if-env-changed={}", name);
+    println!("cargo:rerun-if-env-changed={name}_{target}");
+    println!("cargo:rerun-if-env-changed={name}_{target_underscores}");
+    println!("cargo:rerun-if-env-changed=TARGET_{name}");
+    println!("cargo:rerun-if-env-changed={name}");
 }
 
 fn rerun_if_dir_changed(dir: &Path) {
@@ -272,7 +272,7 @@ fn find_and_output_lib_dir(link_paths: &[PathBuf], target: &str, explicit_static
             for &lib_dir in &[
                 link_path,
                 &link_path.join(target),
-                &link_path.join(&triplet),
+                &link_path.join(triplet),
             ] {
                 let lib_path = lib_dir.join(&file_name);
                 if let Ok(md) = lib_path.metadata() {
@@ -377,7 +377,7 @@ fn find_file_in_dirs(path_suffix: &str, dirs: &[PathBuf]) -> io::Result<PathBuf>
 // minimum supported Rust version for this crate.
 // This should be removed once we can assume at least Rust version 1.51.0.
 #[must_use]
-fn strip_bytes_prefix<'a, 'b>(slice: &'a [u8], prefix: &'b [u8]) -> Option<&'a [u8]> {
+fn strip_bytes_prefix<'a>(slice: &'a [u8], prefix: &'_ [u8]) -> Option<&'a [u8]> {
     let prefix_len = prefix.len();
     if prefix_len <= slice.len() {
         let (head, tail) = slice.split_at(prefix_len);
