@@ -288,7 +288,6 @@ fn find_and_output_lib_dir(link_paths: &[PathBuf], target: &str, explicit_static
 
 fn generate_bindings(out_dir: &Path, include_path: &Path) {
     let mut builder = bindgen::Builder::default()
-        .rustfmt_bindings(true)
         .default_enum_style(bindgen::EnumVariation::ModuleConsts)
         .default_macro_constant_type(bindgen::MacroTypeVariation::Signed)
         .size_t_is_usize(true)
