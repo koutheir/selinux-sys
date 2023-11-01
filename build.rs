@@ -77,19 +77,11 @@ impl CompilerSearchPaths {
     fn new(include_dir: Option<PathBuf>, link_dir: Option<PathBuf>) -> Self {
         env::set_var("LANG", "C");
 
-        let include_paths = if let Some(include_dir) = include_dir {
-            vec![include_dir]
-        } else {
-            Self::get_compiler_include_paths()
-                .expect("selinux-sys: Failed to discover default compiler search paths")
-        };
+        let include_paths = Self::get_compiler_include_paths(include_dir)
+            .expect("selinux-sys: Failed to discover default compiler search paths");
 
-        let link_paths = if let Some(link_dir) = link_dir {
-            vec![link_dir]
-        } else {
-            Self::get_compiler_link_paths()
-                .expect("selinux-sys: Failed to discover default linker search paths")
-        };
+        let link_paths = Self::get_compiler_link_paths(link_dir)
+            .expect("selinux-sys: Failed to discover default linker search paths");
 
         CompilerSearchPaths {
             include_paths,
@@ -97,15 +89,19 @@ impl CompilerSearchPaths {
         }
     }
 
-    fn get_compiler_include_paths() -> io::Result<Vec<PathBuf>> {
-        let compiler = cc::Build::new()
+    fn get_compiler_include_paths(include_dir: Option<PathBuf>) -> io::Result<Vec<PathBuf>> {
+        let mut compiler_builder = cc::Build::new();
+
+        if let Some(include_dir) = include_dir.as_deref() {
+            compiler_builder.include(include_dir);
+        }
+
+        let child = compiler_builder
             .flag("-E")
             .flag("-v")
             .flag("-x")
             .flag("c")
-            .get_compiler();
-
-        let child = compiler
+            .get_compiler()
             .to_command()
             .arg("-") // stdin
             .stdin(process::Stdio::null())
@@ -123,27 +119,38 @@ impl CompilerSearchPaths {
             ));
         }
 
-        let mut paths: Vec<PathBuf> = output
-            .stderr
-            .split(|&b| b == b'\n')
-            .skip_while(|&line| line != b"#include <...> search starts here:")
-            .take_while(|&line| line != b"End of search list.")
-            .filter_map(|bytes| str::from_utf8(bytes).ok())
-            .map(str::trim)
-            .filter_map(|s| dunce::canonicalize(s).ok())
-            .collect();
+        let mut paths = Vec::with_capacity(8);
+
+        if let Some(include_dir) = include_dir {
+            paths.push(include_dir);
+        }
+
+        paths.extend(
+            output
+                .stderr
+                .split(|&b| b == b'\n')
+                .skip_while(|&line| line != b"#include <...> search starts here:")
+                .take_while(|&line| line != b"End of search list.")
+                .filter_map(|bytes| str::from_utf8(bytes).ok())
+                .map(str::trim)
+                .filter_map(|s| dunce::canonicalize(s).ok()),
+        );
 
         paths.dedup();
         Ok(paths)
     }
 
-    fn get_compiler_link_paths() -> io::Result<Vec<PathBuf>> {
-        let compiler = cc::Build::new()
+    fn get_compiler_link_paths(link_dir: Option<PathBuf>) -> io::Result<Vec<PathBuf>> {
+        let mut compiler_builder = cc::Build::new();
+
+        if let Some(link_dir) = link_dir.as_deref() {
+            compiler_builder.flag("-L").flag(path_to_str(link_dir));
+        }
+
+        let child = compiler_builder
             .flag("-v")
             .flag("-print-search-dirs")
-            .get_compiler();
-
-        let child = compiler
+            .get_compiler()
             .to_command()
             .stdout(process::Stdio::piped())
             .stderr(process::Stdio::null())
@@ -173,7 +180,11 @@ impl CompilerSearchPaths {
                 )
             })?;
 
-        let mut paths = Vec::<PathBuf>::with_capacity(8);
+        let mut paths = Vec::with_capacity(8);
+
+        if let Some(link_dir) = link_dir {
+            paths.push(link_dir);
+        }
 
         if let Some(lib_paths) = env::var_os("LIBRARY_PATH") {
             paths.extend(env::split_paths(&lib_paths).filter_map(|s| dunce::canonicalize(s).ok()));
