@@ -107,7 +107,7 @@ impl CompilerSearchPaths {
 
         let child = compiler
             .to_command()
-            .arg("-")
+            .arg("-") // stdin
             .stdin(process::Stdio::null())
             .stdout(process::Stdio::null())
             .stderr(process::Stdio::piped())
@@ -221,7 +221,7 @@ fn rerun_if_dir_changed(dir: &Path) {
 
 fn find_and_output_include_dir(include_paths: &[PathBuf]) -> PathBuf {
     let include_path = find_file_in_dirs("selinux/selinux.h", include_paths)
-        .expect("selinux-sys: Failed to find 'selinux/selinux.h'");
+        .expect("selinux-sys: Failed to find 'selinux/selinux.h'. Please make sure the C header files of libselinux are installed and accessible");
 
     rerun_if_dir_changed(&include_path.join("selinux"));
 
@@ -269,11 +269,7 @@ fn find_and_output_lib_dir(link_paths: &[PathBuf], target: &str, explicit_static
         if let Some(link_path) = link_paths.get(0) {
             let triplet = target.replace("-unknown-", "-").replace("-none-", "-");
 
-            for &lib_dir in &[
-                link_path,
-                &link_path.join(target),
-                &link_path.join(triplet),
-            ] {
+            for &lib_dir in &[link_path, &link_path.join(target), &link_path.join(triplet)] {
                 let lib_path = lib_dir.join(&file_name);
                 if let Ok(md) = lib_path.metadata() {
                     if md.is_file() {
