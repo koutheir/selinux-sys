@@ -20,8 +20,12 @@ pub const SECSID_WILD: security_id_t = std::ptr::null_mut();
 /// # Safety
 /// `aeref` is assumed to be a valid pointer to a mutable `avc_entry_ref` structure.
 pub unsafe fn avc_entry_ref_init(aeref: *mut avc_entry_ref) {
-    if let Some(aeref) = aeref.as_mut() {
-        aeref.ae = std::ptr::null_mut();
+    if !aeref.is_null() {
+        unsafe {
+            aeref.write(avc_entry_ref {
+                ae: std::ptr::null_mut(),
+            })
+        };
     }
 }
 
