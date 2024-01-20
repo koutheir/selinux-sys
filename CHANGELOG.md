@@ -2,19 +2,25 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.8] - 2024-01-19
+
+### Changed
+
+- Updated dependencies.
+
 ## [0.6.7] - 2023-10-31
 
 ### Changed
 
 - When include and/or link paths are specified explicitly, these paths must be provided to all
   compiler instances, both when discovering compiler paths, and when executing `bindgen`.
-- Update dependencies: `bindgen`.
+- Updated dependencies.
 
 ## [0.6.6] - 2023-08-09
 
 ### Changed
 
-- Update dependencies: `bindgen`.
+- Updated dependencies.
 
 ## [0.6.5] - 2023-06-07
 
@@ -26,25 +32,25 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Changed
 
-- Update dependencies: `bindgen`.
+- Updated dependencies.
 
 ## [0.6.3] - 2023-02-23
 
 ### Changed
 
-- Update dependencies: `bindgen`.
+- Updated dependencies.
 
 ## [0.6.2] - 2022-11-22
 
 ### Changed
 
-- Update dependencies: `bindgen`.
+- Updated dependencies.
 
 ## [0.6.1] - 2022-11-20
 
 ### Changed
 
-- Update dependencies: `bindgen`.
+- Updated dependencies.
 
 ## [0.6.0] - 2022-11-14
 
@@ -54,7 +60,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
   > ⚠️ **This is a breaking change**.
 
-- Update dependencies: `bindgen`.
+- Updated dependencies.
 
 ## [0.5.3] - 2022-08-24
 
@@ -63,7 +69,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Pass headers include path to the compiler when generating bindings.
   Specifying the `SELINUX_INCLUDE_DIR` or `SELINUX_PATH` environment variables
   now also affects the command line of the compiler used to generate bindings.
-- Update dependencies: `bindgen`.
+- Updated dependencies.
 
 Thank you very much, *etienne-cor*.
 
@@ -84,7 +90,7 @@ Thank you very much, *etienne-cor*.
 
 ### Changed
 
-- Update dependencies: `bindgen`.
+- Updated dependencies.
 
 ### Removed
 
@@ -131,7 +137,7 @@ Thank you very much, *etienne-cor*.
 
 ### Changed
 
-- Update dependencies: `bindgen`.
+- Updated dependencies.
 
 ## [0.2.0] - 2021-03-17
 
