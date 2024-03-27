@@ -1,7 +1,7 @@
 [package]
 name          = "selinux-sys"
 description   = "Flexible Mandatory Access Control (MAC) for Linux"
-version       = "0.6.8" # Remember to update version in `html_root_url`.
+version       = "0.6.9"                                                          # Remember to update version in `html_root_url`.
 authors       = ["Koutheir Attouchi <koutheir@gmail.com>"]
 edition       = "2021"
 readme        = "README.md"
@@ -10,12 +10,13 @@ keywords      = ["selinux", "security", "access-control", "linux", "filesystem"]
 categories    = ["external-ffi-bindings", "filesystem", "os", "os::linux-apis"]
 build         = "build.rs"
 links         = "selinux"
-repository    = "https://github.com/koutheir/selinux-sys"
 documentation = "https://docs.rs/selinux-sys"
+homepage      = "https://codeberg.org/koutheir/selinux-sys.git"
+repository    = "https://codeberg.org/koutheir/selinux-sys.git"
 
 [build-dependencies]
 bindgen = { version = "0.69" }
-walkdir = { version = "2.4" }
+walkdir = { version = "2.5" }
 dunce   = { version = "1.0" }
 cc      = { version = "1.0" }
 

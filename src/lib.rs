@@ -1,6 +1,6 @@
 #![cfg(all(target_os = "linux", not(target_env = "kernel")))]
 #![doc = include_str!("../README.md")]
-#![doc(html_root_url = "https://docs.rs/selinux-sys/0.6.8")]
+#![doc(html_root_url = "https://docs.rs/selinux-sys/0.6.9")]
 #![warn(unsafe_op_in_unsafe_fn)]
 #![allow(
     non_upper_case_globals,
